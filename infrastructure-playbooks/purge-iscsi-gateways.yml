@@ -1,5 +1,15 @@
 ---
 
+- hosts: localhost
+  become: false
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+    - name: prevent from running main playbook on RHCS cluster
+      fail:
+        msg: "Running this playbook isn't supported with this release of RHCS."
+
+
 - name: Confirm removal of the iSCSI gateway configuration
   hosts: localhost
 

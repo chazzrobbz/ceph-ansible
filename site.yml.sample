@@ -1,6 +1,15 @@
 ---
 # Defines deployment design and assigns role to server groups
 
+- hosts: localhost
+  become: false
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+    - name: prevent from running main playbook on RHCS cluster
+      fail:
+        msg: "Running this playbook isn't supported with this release of RHCS."
+
 - hosts:
   - mons
   - osds

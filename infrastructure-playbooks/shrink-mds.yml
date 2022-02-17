@@ -9,6 +9,16 @@
 # ansible-playbook -e ireallymeanit=yes|no shrink-mds.yml
 #     Overrides the prompt using -e option. Can be used in
 #     automation scripts to avoid interactive prompt.
+
+- hosts: localhost
+  become: false
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+    - name: prevent from running main playbook on RHCS cluster
+      fail:
+        msg: "Running this playbook isn't supported with this release of RHCS."
+
 - name: gather facts and check the init system
   hosts:
     - "{{ mon_group_name | default('mons') }}"

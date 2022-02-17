@@ -5,6 +5,16 @@
 # It is *not* intended to restart services since we don't want multiple services
 # restarts.
 
+- hosts: localhost
+  become: false
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+    - name: prevent from running main playbook on RHCS cluster
+      fail:
+        msg: "Running this playbook isn't supported with this release of RHCS."
+
+
 - hosts:
   - mons
   - osds

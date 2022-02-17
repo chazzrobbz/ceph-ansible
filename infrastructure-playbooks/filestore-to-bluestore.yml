@@ -7,6 +7,16 @@
 # If a mix of filestore and bluestore OSDs is detected on the node, the node will be skipped unless you pass `force_filestore_to_bluestore=True` as an extra var.
 # ie: ansible-playbook infrastructure-playbooks/filestore-to-bluestore.yml --limit <osd-node-to-migrate> -e force_filestore_to_bluestore=True
 
+- hosts: localhost
+  become: false
+  gather_facts: false
+  any_errors_fatal: true
+  tasks:
+    - name: prevent from running main playbook on RHCS cluster
+      fail:
+        msg: "Running this playbook isn't supported with this release of RHCS."
+
+
 - hosts: "{{ osd_group_name }}"
   become: true
   serial: 1
